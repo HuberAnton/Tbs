@@ -65,7 +65,6 @@ public class WalkMovement : Movement
 
         }
         yield return null;
-
     }
 
 

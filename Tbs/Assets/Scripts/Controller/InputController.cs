@@ -13,7 +13,10 @@ public class InputController : MonoBehaviour
     Repearter _ver = new Repearter("Vertical");
 
 
-    string[] _buttons = new string[] { "Fire1", "Fire2", "Fire3" };
+    // All button presses. Eg cancel, accept, rotation, ect.
+    string[] _buttons = new string[] { "Fire1", "Fire2", "Fire3"};
+
+    string[] _rotation = new string[] { "RotateLeft", "RotateRight" };
 
     // I need to think about this a bit more.
     // So this will be used whenever we want to broadcast this event?
@@ -25,6 +28,7 @@ public class InputController : MonoBehaviour
     public static event EventHandler<InfoEventArgs<Point>> moveEvent;
     public static event EventHandler<InfoEventArgs<int>> fireEvent;
 
+    public static event EventHandler<InfoEventArgs<int>> rotationEvent;
 
     private void Update()
     {
@@ -45,6 +49,18 @@ public class InputController : MonoBehaviour
                     // Don't know how this handles multiple presses on the 
                     // same frame.
                     fireEvent(this, new InfoEventArgs<int>(i));
+                }
+            }
+        }
+
+        for (int i = 0; i < _rotation.Length; ++i)
+        {
+            if (Input.GetButtonUp(_rotation[i]))
+            {
+                // Often will have rotaiton.
+                if(rotationEvent != null)
+                {
+                    rotationEvent(this, new InfoEventArgs<int>(i));
                 }
             }
         }

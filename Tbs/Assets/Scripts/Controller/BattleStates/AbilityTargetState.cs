@@ -104,10 +104,10 @@ public class AbilityTargetState : BattleState
             {
                 // Skip if it exits feature
                 //if(skipbutton) cursorPos = turn.plan.fireLocation;
-                if (cursorPos.m_x + offset.m_x < turn.plan.moveLocation.m_x) offset.m_x++;
-                else if (cursorPos.m_x + offset.m_x > turn.plan.moveLocation.m_x) offset.m_x--;
-                else if (cursorPos.m_y + offset.m_y < turn.plan.moveLocation.m_y) offset.m_y++;
-                else if (cursorPos.m_y + offset.m_y > turn.plan.moveLocation.m_y) offset.m_y--;
+                if (cursorPos.m_x + offset.m_x < turn.plan.fireLocation.m_x) offset.m_x++;
+                else if (cursorPos.m_x + offset.m_x > turn.plan.fireLocation.m_x) offset.m_x--;
+                else if (cursorPos.m_y + offset.m_y < turn.plan.fireLocation.m_y) offset.m_y++;
+                else if (cursorPos.m_y + offset.m_y > turn.plan.fireLocation.m_y) offset.m_y--;
                 SelectTile(cursorPos + offset);
                 yield return new WaitForSeconds(0.25f);
             }

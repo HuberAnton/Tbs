@@ -42,12 +42,16 @@ public abstract class BattleState : State
 
     protected override void AddListeners()
     {
+        // Temporary
+        InputController.rotationEvent += OnRotate;
+
         // No input checks.
         // Might need to add a skip event instead to hurry up movement.
         if (driver == null || driver.Current == Drivers.Human)
         {
             InputController.moveEvent += OnMove;
             InputController.fireEvent += OnFire;
+
         }
         else
         {
@@ -58,10 +62,14 @@ public abstract class BattleState : State
 
     protected override void RemoveListeners()
     {
+        // Temporary
+        InputController.rotationEvent -= OnRotate;
+
         if (driver == null || driver.Current == Drivers.Human)
         {
             InputController.moveEvent -= OnMove;
             InputController.fireEvent -= OnFire;
+
         }
         else
         {
@@ -85,6 +93,11 @@ public abstract class BattleState : State
         Debug.Log("Skip Test");
     }
 
+    protected virtual void OnRotate(object sender, InfoEventArgs<int> e)
+    {
+        // Will need to be moved to each state.
+        m_owner.m_cameraRig.CombatRotate(e.m_info);
+    }
 
     protected virtual void SelectTile(Point p)
     {

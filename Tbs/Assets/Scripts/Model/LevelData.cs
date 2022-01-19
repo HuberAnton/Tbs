@@ -12,4 +12,5 @@ using UnityEngine;
 public class LevelData : ScriptableObject
 {
     public List<Vector3> m_tiles;
+    public List<TileData> m_tileData;
 }

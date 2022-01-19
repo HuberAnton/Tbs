@@ -96,12 +96,15 @@ public abstract class BattleState : State
     protected virtual void OnRotate(object sender, InfoEventArgs<int> e)
     {
         // Will need to be moved to each state.
+        // Value will be -1 or 1
         m_owner.m_cameraRig.CombatRotate(e.m_info);
     }
 
     protected virtual void SelectTile(Point p)
     {
-        if(m_pos == p || ! m_board.m_tiles.ContainsKey(p))
+      
+
+        if (m_pos == p || ! m_board.m_tiles.ContainsKey(p))
         {
             return;
         }

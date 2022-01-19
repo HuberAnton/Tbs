@@ -22,10 +22,26 @@ public class CameraRig : MonoBehaviour
     public const string CameraRotatingStartNotification = "CameraRig.RotationStart";
     //public const string CameraRotationCompleteNotificaiton = "CameraRig.RotationComplete";
 
+    // Which direciton the camera is presently facing.
+    
+    public static Directions Forward
+    {
+        get
+        {
+            return forward;
+        }
+    }
+    static Directions forward;
+    
+
+    
+    
+
 
     private void Awake()
     {
         _transform = transform;
+        forward = Directions.North;
     }
 
     private void Update()
@@ -44,20 +60,27 @@ public class CameraRig : MonoBehaviour
     {
         if (rotation == null || !rotation.IsPlaying)
         {
+            direction = direction == 0 ? -1 : 1;
+            adjustCameraFacing(direction);
+
+
             // No notify any assets that rotation is occuring.
             this.PostNotification(CameraRotatingStartNotification, new Info<int, float, Vector3>(direction, m_rotationTime, rotationValue));
-            if (direction == 0)
-            {
-                // Rotate Left
-                rotation = m_heading.RotateToLocal(m_heading.rotation.eulerAngles + rotationValue, m_rotationTime, EasingEquations.EaseInOutQuad);
-            }
-            else
-            {
-                // Rotate Right
-                rotation = m_heading.RotateToLocal(m_heading.rotation.eulerAngles + -rotationValue, m_rotationTime, EasingEquations.EaseInOutQuad);
-            }
+
+            rotation = m_heading.RotateToLocal(m_heading.rotation.eulerAngles + (-direction * rotationValue), m_rotationTime, EasingEquations.EaseInOutQuad);
+
         }
     }
 
+    void adjustCameraFacing(int direction)
+    {
+        forward += direction;
+        Debug.Log(forward);
+        if ((int)forward > 3)
+            forward = Directions.North;
+        else if ((int)forward < 0)
+            forward = Directions.West;
+        //Debug.Log(forward);
+    }
 
 }

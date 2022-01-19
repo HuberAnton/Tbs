@@ -22,6 +22,7 @@ public class Point : IEquatable<Point>
         m_y = a_y;
     }
 
+
     // Overloads
 
     public static Point operator +(Point lhs, Point rhs)
@@ -43,6 +44,14 @@ public class Point : IEquatable<Point>
     {
         return !(lhs == rhs);
     }
+
+    public static Point operator -(Point lhs)
+    {
+        lhs.m_x = lhs.m_x * -1;
+        lhs.m_y = lhs.m_y * -1;
+        return lhs;
+    }
+
 
     public override bool Equals(object obj)
     {

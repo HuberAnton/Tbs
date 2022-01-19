@@ -35,10 +35,11 @@ public class AbilityTargetState : BattleState
 
     protected override void OnMove(object sender, InfoEventArgs<Point> e)
     {
+        e.m_info.GetAdjustedPoint();
         // If you are expeced to face the
         // direction to use the attack rotate towards
         // while selecting
-        if(ar.directionOrientation)
+        if (ar.directionOrientation)
         {
             ChangeDirection(e.m_info);
         }

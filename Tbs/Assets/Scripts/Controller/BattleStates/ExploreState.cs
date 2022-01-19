@@ -22,6 +22,7 @@ public class ExploreState : BattleState
 
     protected override void OnMove(object sender, InfoEventArgs<Point> e)
     {
+        e.m_info.GetAdjustedPoint();
         SelectTile(e.m_info + m_pos);
         RefreshPrimaryStatPanel(m_pos);
         tileCoordinateController.UpdateCoordinates(m_board.m_tiles[m_pos]);

@@ -229,9 +229,11 @@ public class BoardCreator : MonoBehaviour
 
         LevelData board = ScriptableObject.CreateInstance<LevelData>();
         board.m_tiles = new List<Vector3>(m_tiles.Count);
+        board.m_tileData = new List<TileData>(m_tiles.Count);
         foreach(Tile t in m_tiles.Values)
         {
             board.m_tiles.Add(new Vector3(t.m_pos.m_x, t.m_height, t.m_pos.m_y));
+            board.m_tileData.Add(new TileData(new Vector3(t.m_pos.m_x, t.m_height, t.m_pos.m_y), 0, 0, null));
         }
         // Why both argurments into the string format by only 1 used?
         string filesName = string.Format("Assets/Resources/Levels/{1}.asset", filePath, name);

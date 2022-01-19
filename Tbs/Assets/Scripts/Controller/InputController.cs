@@ -74,7 +74,11 @@ public class InputController : MonoBehaviour
                 // This is the broadcast.
                 // I suppose any script that would be listening for this
                 // would probably need some kind of reference to this event or class. 
-                moveEvent(this, new InfoEventArgs<Point>(new Point(x, y)));
+
+                // convert x and y to the correct direction.
+                Point p = new Point(x, y);
+
+                moveEvent(this, new InfoEventArgs<Point>(p));
             }
         }
     }

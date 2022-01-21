@@ -35,8 +35,8 @@ public class CommandSelectionState : BaseAbilityMenuState
             menuOptions.Add("Wait");
         }
         abilityMenuPanelController.Show(menuTitle, menuOptions);
-        abilityMenuPanelController.SetLocked(0, turn.hasUnitMoved);
-        abilityMenuPanelController.SetLocked(1, turn.hasUnitActed);
+        abilityMenuPanelController.SetLocked(0, !turn.CanPerformAction(1));
+        abilityMenuPanelController.SetLocked(1, !turn.CanPerformAction(1));
     }
 
 

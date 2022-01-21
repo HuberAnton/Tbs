@@ -19,6 +19,9 @@ public class BattleController : StateMachine
     public FacingIndicator facingIndicator;
     public Turn turn = new Turn();
     public List<Unit> units = new List<Unit>();
+    // Instead of a list of units a list of Alliances is cycled through.
+    public Dictionary<Alliances, List<Unit>> alliances =  new Dictionary<Alliances, List<Unit>>(); 
+
 
     // Round flow.
     public IEnumerator round;

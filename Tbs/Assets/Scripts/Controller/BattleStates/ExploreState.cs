@@ -9,6 +9,7 @@ public class ExploreState : BattleState
         base.Enter();
         // If highlighting a unit, display stat panel.
         RefreshPrimaryStatPanel(m_pos);
+
         // Update tile ui.
         tileCoordinateController.Show(m_board.m_tiles[m_pos]);
     }
@@ -29,11 +30,31 @@ public class ExploreState : BattleState
     }
 
     protected override void OnFire(object sender, InfoEventArgs<int> e)
-    {
+    { 
         // Firekey 0 in unity input controller.
-        if(e.m_info == 0 && units.Count > 0)
+        if (e.m_info == 0)//units.Count > 0)
         {
-            m_owner.ChangeState<CommandSelectionState>();
+            Unit unit = GetUnit(m_pos);
+            if (unit != null)
+            {
+                if (turn.unitList.Contains(unit))
+                {
+                    turn.actor = unit;
+                    m_owner.ChangeState<CommandSelectionState>();
+                }
+
+                //else // Investigate state
+                //{
+
+                //}
+            }
+
+
+
+
+            // Set the currently selected unit to the active unit in bc
         }
+
     }
+
 }

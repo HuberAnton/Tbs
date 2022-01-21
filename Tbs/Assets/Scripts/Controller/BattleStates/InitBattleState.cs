@@ -20,7 +20,7 @@ public class InitBattleState : BattleState
         SelectTile(p);
         SpawnTestUnits();
         AddVictoryCondition();
-        m_owner.round = m_owner.gameObject.AddComponent<TurnOrderController>().Round();
+        m_owner.round = m_owner.gameObject.AddComponent<TurnOrderController>().CurrentTurn();
         yield return null;
         m_owner.ChangeState<CutSceneState>();
     }
@@ -86,6 +86,9 @@ public class InitBattleState : BattleState
         // Gets all the tiles of the current loaded level.
         List<Tile> locations = new List<Tile>(m_board.m_tiles.Values);
         
+
+
+
         // Each unit 
         for(int i = 0; i < recipes.Length; ++i)
         {
@@ -95,6 +98,11 @@ public class InitBattleState : BattleState
             // Get a random tile on the map
             int random = UnityEngine.Random.Range(0, locations.Count);
             Tile randomTile = locations[random];
+
+            // Need to add to list of alliacnes.
+
+
+
 
             // Remove from the list of tiles.
             locations.RemoveAt(random);
@@ -107,6 +115,24 @@ public class InitBattleState : BattleState
             unit.Match();
 
             // Add to list of units to battlestate
+
+            Alliances al = unit.GetComponent<Alliance>().type;
+
+            // If a list of this alliance doesn't exist create
+            // a new one. Unsure how this will work using flags.
+            if (alliances.ContainsKey(al))
+            {
+                // Add the unit to the current list.
+                alliances[al].Add(unit);
+            }
+            else
+            {
+                List<Unit> units = new List<Unit>();
+                units.Add(unit);
+                alliances.Add(al, units);
+            }
+
+            // Old will be removed.
             units.Add(unit);
         }
         // Have unit marker start at unit 0 of above loop.

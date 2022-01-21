@@ -34,7 +34,8 @@ public static class JobParser
     static readonly int ResistanceValue = 9;
     static readonly int MoveValue = 10;
     static readonly int JumpValue = 11;
-
+    static readonly int ApValue = 12;
+    static readonly int ApMaxValue = 13;
 
     // This would be what should occur when the 
     // engine detects a change to the file.
@@ -100,6 +101,12 @@ public static class JobParser
 
         StatModifierFeature evd = GetFeature(obj, StatTypes.EVD);
         evd.amount = Convert.ToInt32(elements[EvadeValue]);
+
+        StatModifierFeature ap = GetFeature(obj, StatTypes.AP);
+        ap.amount = Convert.ToInt32(elements[ApValue]);
+
+        StatModifierFeature apmax = GetFeature(obj, StatTypes.APMAX);
+        apmax.amount = Convert.ToInt32(elements[ApMaxValue]);
     }
 
     // Same as Starting stats except using growth spreadsheet instead.

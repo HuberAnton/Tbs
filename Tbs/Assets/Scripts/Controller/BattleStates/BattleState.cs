@@ -18,6 +18,10 @@ public abstract class BattleState : State
     public Turn turn { get { return m_owner.turn; } }
     public List<Unit> units { get { return m_owner.units; } }
 
+    public Unit currentUnit { get { return m_owner.m_currentUnit; } }
+
+    public Dictionary<Alliances, List<Unit>> alliances { get { return m_owner.alliances; } }
+
     public StatPanelContoller statPanelContoller { get { return m_owner.statPanelController; } }
 
     public HitSuccessIndicator hitSuccessIndicator { get { return m_owner.hitSuccessIndicator; } }
@@ -30,7 +34,7 @@ public abstract class BattleState : State
     public override void Enter()
     {
         // No actor means null driver.
-        driver = (turn.actor != null) ? turn.actor.GetComponent<Driver>() : null;
+        driver = turn.driver;
         base.Enter();
     }
 
@@ -58,6 +62,10 @@ public abstract class BattleState : State
             // Code for skipping ai
             InputController.fireEvent += OnSkip;
         }
+
+
+        // Neeed to add a base state for end turns to flip the activated units.
+        // Maybe make a button that checks for the end turn.
     }
 
     protected override void RemoveListeners()
@@ -102,9 +110,9 @@ public abstract class BattleState : State
 
     protected virtual void SelectTile(Point p)
     {
-      
 
-        if (m_pos == p || ! m_board.m_tiles.ContainsKey(p))
+
+        if (m_pos == p || !m_board.m_tiles.ContainsKey(p))
         {
             return;
         }
@@ -124,6 +132,7 @@ public abstract class BattleState : State
         // Works for now.
         return content != null ? content.GetComponent<Unit>() : null;
     }
+
 
     protected virtual void RefreshPrimaryStatPanel(Point p)
     {

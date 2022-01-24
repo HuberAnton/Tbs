@@ -37,16 +37,11 @@ public class ExploreState : BattleState
             Unit unit = GetUnit(m_pos);
             if (unit != null)
             {
-                if (turn.unitList.Contains(unit))
+                if (turn.playerDrivenUnacted.Contains(unit))
                 {
-                    turn.actor = unit;
+                    turn.Change(unit);
                     m_owner.ChangeState<CommandSelectionState>();
                 }
-
-                //else // Investigate state
-                //{
-
-                //}
             }
 
 

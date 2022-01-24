@@ -20,6 +20,7 @@ public class InitBattleState : BattleState
         SelectTile(p);
         SpawnTestUnits();
         AddVictoryCondition();
+        // Attach the function to the battlecontroller.
         m_owner.round = m_owner.gameObject.AddComponent<TurnOrderController>().CurrentTurn();
         yield return null;
         m_owner.ChangeState<CutSceneState>();
@@ -80,7 +81,13 @@ public class InitBattleState : BattleState
         string[] recipes = new string[]
             {
                 "Hero",
-                "Villan"
+                "Hero",
+                "Hero",
+                "Hero",
+                "Hero",
+                "Villan",
+                "Hero Ai",
+                "Villan Player"
             };
 
         // Gets all the tiles of the current loaded level.
@@ -120,6 +127,7 @@ public class InitBattleState : BattleState
 
             // If a list of this alliance doesn't exist create
             // a new one. Unsure how this will work using flags.
+            
             if (alliances.ContainsKey(al))
             {
                 // Add the unit to the current list.
@@ -131,6 +139,8 @@ public class InitBattleState : BattleState
                 units.Add(unit);
                 alliances.Add(al, units);
             }
+            // Should order units by driver.
+
 
             // Old will be removed.
             units.Add(unit);

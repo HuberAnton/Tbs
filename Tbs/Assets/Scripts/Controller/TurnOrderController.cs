@@ -17,9 +17,6 @@ public class TurnOrderController : MonoBehaviour
     // Cycles to the next activateable alliance.
     bool endTurn = false;
 
-
-
-
     // For adding observers.
     // Makes the process much s
     public const string RoundBeginNotificaiton = "TurnOrderController.roundBegan";
@@ -45,8 +42,6 @@ public class TurnOrderController : MonoBehaviour
             _allianceTurnEndNotifcation.Add(alliance, string.Format("TurnOrderController.{0}EndTurn", alliance.ToString()));
         return _allianceTurnEndNotifcation[alliance];
     }
-
-
 
     public IEnumerator Round()
     {
@@ -137,6 +132,10 @@ public class TurnOrderController : MonoBehaviour
         return target.GetComponent<Stats>()[StatTypes.CTR];
     }
 
+    Driver GetDriver(Unit target)
+    {
+        return target.GetComponent<Driver>();
+    }
 
 
     // Cycles through each alliance.
@@ -161,23 +160,57 @@ public class TurnOrderController : MonoBehaviour
                     s[StatTypes.AP] = s[StatTypes.APMAX];
                 }
 
+                // Changes alliance
                 bc.turn.Change(kvp.Key, kvp.Value);
                 AllianceTurnBeginNotificaiton(kvp.Key);
+
+                Unit nextUnit;
+
+                // Cycle through ai units.
+                while (bc.turn.aiDrivenUnacted.Count > 0)
+                {
+                    nextUnit = bc.turn.GetNextAiUnit();
+                    if(nextUnit)
+                    {
+                        nextUnit.PostNotification(TurnBeganNotification);
+                        bc.turn.Change(nextUnit);
+                        yield return nextUnit;
+                        nextUnit.PostNotification(TurnCompletedNotification);
+                    }
+                }
+
+                // Add a notificaiton for players to check how many
+                // remaining unmoved units.
+                while(!bc.turn.endTurn)
+                {
+                    nextUnit = bc.turn.GetNextPlayerUnit();
+                    if (nextUnit)
+                    {
+                        nextUnit.PostNotification(TurnBeganNotification);
+                        bc.turn.Change(nextUnit);
+                        yield return nextUnit;
+                        nextUnit.PostNotification(TurnCompletedNotification);
+                    }
+                    //else
+                    //{
+                    //    yield return null;
+                    //}
+                }
+
+                // Remove notificaiton of check.
+
+                // Now that alliances have been changed need to cycle units if needed.
+
                 // Returns the currently active alliance.
-                yield return kvp.Key;
+
 
                 AllianceTurnEndNotificaiton(kvp.Key);
             }
 
-
-
             // Nothing else should be handled by the turn controller as
             // it has set the correct units to be activated this round.
 
-
             this.PostNotification(RoundEndedNotificaiton);
         }
-
     }
-
 }

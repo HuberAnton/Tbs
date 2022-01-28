@@ -81,13 +81,9 @@ public class InitBattleState : BattleState
         string[] recipes = new string[]
             {
                 "Hero",
-                "Hero",
-                "Hero",
-                "Hero",
-                "Hero",
                 "Villan",
                 "Hero Ai",
-                "Villan Player"
+                "Villan"
             };
 
         // Gets all the tiles of the current loaded level.

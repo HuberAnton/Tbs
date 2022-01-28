@@ -21,7 +21,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 9}
-  m_MinSize: {x: 875, y: 542}
+  m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_Maximized: 1
 --- !u!114 &2
@@ -43,8 +43,8 @@ MonoBehaviour:
     y: 0
     width: 201
     height: 669
-  m_MinSize: {x: 200, y: 200}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 201, y: 221}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -69,8 +69,8 @@ MonoBehaviour:
     y: 0
     width: 1411
     height: 669
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 102, y: 121}
+  m_MaxSize: {x: 4002, y: 4021}
   m_ActualView: {fileID: 16}
   m_Panes:
   - {fileID: 19}
@@ -96,8 +96,8 @@ MonoBehaviour:
     y: 0
     width: 308
     height: 669
-  m_MinSize: {x: 275, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 17}
   m_Panes:
   - {fileID: 17}
@@ -282,10 +282,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 987
-  m_MinSize: {x: 579, y: 342}
-  m_MaxSize: {x: 12004, y: 8042}
+  m_MinSize: {x: 579, y: 492}
+  m_MaxSize: {x: 12004, y: 14042}
   vertical: 0
-  controlID: 80
+  controlID: 57
 --- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -307,10 +307,10 @@ MonoBehaviour:
     y: 0
     width: 1920
     height: 987
-  m_MinSize: {x: 579, y: 342}
-  m_MaxSize: {x: 12004, y: 8042}
+  m_MinSize: {x: 579, y: 492}
+  m_MaxSize: {x: 12004, y: 14042}
   vertical: 1
-  controlID: 81
+  controlID: 58
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -336,7 +336,7 @@ MonoBehaviour:
   m_MinSize: {x: 579, y: 221}
   m_MaxSize: {x: 12004, y: 4021}
   vertical: 0
-  controlID: 82
+  controlID: 59
 --- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -347,7 +347,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: ConsoleWindow
+  m_Name: ProjectBrowser
   m_EditorClassIdentifier: 
   m_Children: []
   m_Position:
@@ -356,14 +356,14 @@ MonoBehaviour:
     y: 669
     width: 1920
     height: 318
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 21}
+  m_MinSize: {x: 230, y: 271}
+  m_MaxSize: {x: 10000, y: 10021}
+  m_ActualView: {fileID: 20}
   m_Panes:
   - {fileID: 20}
   - {fileID: 21}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -523,9 +523,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: fc370000
-      m_LastClickedID: 14332
-      m_ExpandedIDs: 6afbfffffc370000
+      m_SelectedIDs: 
+      m_LastClickedID: 0
+      m_ExpandedIDs: 5cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -703,20 +703,20 @@ MonoBehaviour:
     m_SkipHidden: 1
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scripts/Controller
+    - Assets/Resources/Unit Recipies
   m_ViewMode: 1
   m_StartGridSize: 59
   m_LastFolders:
-  - Assets/Scripts/Controller
+  - Assets/Resources/Unit Recipies
   m_LastFoldersGridSize: 59
   m_LastProjectPath: C:\Users\User\Desktop\Repos\Taticool\Tbs\Tbs
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
-    scrollPos: {x: 0, y: 155}
-    m_SelectedIDs: e43d0000
-    m_LastClickedID: 15844
-    m_ExpandedIDs: 00000000483b00004a3b00004c3b00005a3b00005e3b000000ca9a3b
+    scrollPos: {x: 0, y: 75}
+    m_SelectedIDs: ba3f0000
+    m_LastClickedID: 16314
+    m_ExpandedIDs: 000000004a3b00004c3b00004e3b00007e3f000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -744,7 +744,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000483b00004a3b00004c3b0000
+    m_ExpandedIDs: 000000004a3b00004c3b00004e3b0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -769,9 +769,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 36380000
-    m_LastClickedInstanceID: 14390
-    m_HadKeyboardFocusLastEvent: 0
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 1
     m_ExpandedInstanceIDs: b4e10000e4d400006c43000058540000f04200008a4b03004ae8ffff70460000b4540000b6530000c8460000425a0000604e0000b6440000c44d0000384500000c440000fc57000090450000345800004c52000030440000a26e000024450000d24b0000fc5b0000fa5b0000ae4400009c5a00003c4500000a540000c05a000060450000b85a0000e6640000565f00005a5f00000e460000825f0000be5800003e6000007a5e0000f84300003c5d00000a8e0000908d000062430000685800008256000096be02002e5c0000925d0000686c000012530000004c00001e5d0000864b0000e2450000dc6c0000c4490000bc450000f4780000a4c6f7ff66d10f006a6e00001a5c0000e8390100e24c0000de4c0000e8460100e4460100dc460100e04601005a430100564301005e4301006243010028c30500a2bc0500041a0100ba82010056120100ee550000a66c0100204701002447010082522f00a03f0100163f0100bc190100064e13001a4e1300f84b01003a130600d241180048c71c006ae03700a8410100f46a01004c4a0100c0750100c2ba0200543c01008e3e0100f63a01007c3b0100aa5301006c5201009c720e00a6700e0082720e0096720e0000be0500d45801006a5901003a6b31009c510100c6520000b0620100466701008e560000ae3700005a37000000360000a2380000b63600003a370000bc3c00000c380000ba3c0000723d0000363b00004c3a000000000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0

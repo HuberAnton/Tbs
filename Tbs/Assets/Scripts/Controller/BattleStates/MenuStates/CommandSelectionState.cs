@@ -57,7 +57,7 @@ public class CommandSelectionState : BaseAbilityMenuState
                 break;
             // Wait
             case 2:
-                //m_owner.ChangeState<SelectUnitState>(); For going straight to next unit.
+                turn.completedAction = true;
                 m_owner.ChangeState<EndFacingState>();
                 break;
         }

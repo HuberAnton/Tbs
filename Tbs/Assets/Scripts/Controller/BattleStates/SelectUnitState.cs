@@ -55,7 +55,7 @@ public class SelectUnitState : BattleState
             else
             {
                 //turn.Change(turn.playerDrivenUnacted[0]);
-                SelectTile(turn.playerDrivenUnacted[turn.playerDrivenActed.Count].m_tile.m_pos);
+                SelectTile(turn.actor.m_tile.m_pos);
                 m_owner.ChangeState<ExploreState>();
             }
         }

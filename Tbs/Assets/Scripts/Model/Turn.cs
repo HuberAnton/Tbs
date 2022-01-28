@@ -23,23 +23,20 @@ public class Turn
     public List<Unit> playerDrivenUnacted = new List<Unit>();
     public List<Unit> playerDrivenActed = new List<Unit>();
 
+    public List<Unit> actedUnits = new List<Unit>();
+    public List<Unit> unactedUnits = new List<Unit>();
+
+    public bool completedAction = false;
     public bool endTurn;
 
-    public int completedTurns = 0;
-
     public const string AllUnitsCompletedActionNotificaiton = "Turn.AllUnitsCompletedAction";
-
-
 
     // Changing unit.
     public void Change(Unit current)
     {
-        if(actor != null && driver.Current == Drivers.Human)
-        {
-            actor.RemoveObserver(EndTurnCheck, TurnOrderController.TurnCompletedNotification);
-        }
+        actor.RemoveObserver(EndTurnCheck, TurnOrderController.TurnCompletedNotification);
         actor = current;
-
+        actor.AddObserver(EndTurnCheck, TurnOrderController.TurnCompletedNotification);
         hasUnitMoved = false;
         hasUnitActed = false;
         lockMove = false;
@@ -47,8 +44,6 @@ public class Turn
         startDir = actor.m_direction;
         plan = null;
         driver = current.GetComponent<Driver>();
-        if(driver.Current == Drivers.Human)
-         actor.AddObserver(EndTurnCheck, TurnOrderController.TurnCompletedNotification);
     }
 
     public void Change(Alliances alliance, List<Unit> units)
@@ -57,51 +52,19 @@ public class Turn
         acitveAlliance = alliance;
         // Cycle through units in alliance
 
-        playerDrivenUnacted.Clear();
-        aiDrivenUnacted.Clear();
-        playerDrivenActed.Clear();
+        actedUnits.Clear();
+        unactedUnits.Clear();
 
-        for (int i = 0;i < units.Count; ++i)
+        // Add ai units to front
+        for(int i = 0; i < units.Count; ++i)
         {
-            // Sort units by how they are driven in the alligence.
-            Driver driver = units[i].GetComponent<Driver>();
-            if(driver.Current == Drivers.Human)
-            {
-                playerDrivenUnacted.Add(units[i]);
-            }
+            if (units[i].GetComponent<Driver>().Current == Drivers.Computer)
+                unactedUnits.Insert(0, units[i]);
             else
-            {
-                aiDrivenUnacted.Add(units[i]);
-            }
+                unactedUnits.Add(units[i]);
         }
         endTurn = false;
     }
-
-
-    //// May be redundant.
-    //public IEnumerator CycleUnit()
-    //{
-    //    while (true)
-    //    {
-    //        for (int i = 0; i < unitList.Count - 1; ++i)
-    //        {
-    //            // Units should be 
-    //            driver = unitList[i].GetComponent<Driver>();
-    //            yield return unitList[i];
-
-    //        }
-
-
-    //        // for ai this will auto move.
-
-    //        // post all units completed actions.
-    //        // This will cause a popup for the player to move to 
-    //        // next alliance.
-    //        this.PostNotification(AllUnitsCompletedActionNotificaiton);
-    //    }
-    //        // All units cycled.
-    //        // Move to next turn.
-    //}
 
     public void UndoMove()
     {
@@ -116,43 +79,28 @@ public class Turn
         return actor.GetComponent<Stats>()[StatTypes.AP] >= cost;
     }
 
-    public Unit GetNextAiUnit()
+    public Unit GetNextUnit()
     {
-        if (aiDrivenUnacted.Count > 0)
+        if(unactedUnits.Count > 0)
         {
-            Unit unit = aiDrivenUnacted[0];
-            aiDrivenUnacted.Remove(unit);
-            return unit;
+            return unactedUnits[0];
         }
         else
-            return null;
-    }
-
-    // Shouldn't be like this.
-    // Instead should post that a 
-    public Unit GetNextPlayerUnit()
-    {
-        if (playerDrivenUnacted.Count > 0)
         {
-            Unit unit = playerDrivenUnacted[0];
-            return unit;
-        }
-        else
+            endTurn = true;
             return null;
+        }
     }
 
-    // Unit is the sender. No args
+    // Checks if a unit can be activated again or not.
     public void EndTurnCheck(object sender, object args)
     {
         Unit unit = (Unit)sender;
-        if (!playerDrivenActed.Contains(unit))
+        if(unit.GetComponent<Driver>().Current == Drivers.Computer || completedAction == true || unit.GetComponent<Stats>()[StatTypes.AP] == 0)
         {
-            playerDrivenActed.Add(unit);
-        }
-
-        if(playerDrivenActed.Count == playerDrivenUnacted.Count)
-        {
-            endTurn = true;
+            // No longer activatable
+            actedUnits.Add(unit);
+            unactedUnits.Remove(unit);
         }
     }
 

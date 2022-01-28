@@ -166,24 +166,9 @@ public class TurnOrderController : MonoBehaviour
 
                 Unit nextUnit;
 
-                // Cycle through ai units.
-                while (bc.turn.aiDrivenUnacted.Count > 0)
+                while (!bc.turn.endTurn)
                 {
-                    nextUnit = bc.turn.GetNextAiUnit();
-                    if(nextUnit)
-                    {
-                        nextUnit.PostNotification(TurnBeganNotification);
-                        bc.turn.Change(nextUnit);
-                        yield return nextUnit;
-                        nextUnit.PostNotification(TurnCompletedNotification);
-                    }
-                }
-
-                // Add a notificaiton for players to check how many
-                // remaining unmoved units.
-                while(!bc.turn.endTurn)
-                {
-                    nextUnit = bc.turn.GetNextPlayerUnit();
+                    nextUnit = bc.turn.GetNextUnit();
                     if (nextUnit)
                     {
                         nextUnit.PostNotification(TurnBeganNotification);
@@ -191,18 +176,7 @@ public class TurnOrderController : MonoBehaviour
                         yield return nextUnit;
                         nextUnit.PostNotification(TurnCompletedNotification);
                     }
-                    //else
-                    //{
-                    //    yield return null;
-                    //}
                 }
-
-                // Remove notificaiton of check.
-
-                // Now that alliances have been changed need to cycle units if needed.
-
-                // Returns the currently active alliance.
-
 
                 AllianceTurnEndNotificaiton(kvp.Key);
             }

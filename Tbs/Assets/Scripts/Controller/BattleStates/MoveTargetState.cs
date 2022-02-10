@@ -47,7 +47,10 @@ public class MoveTargetState : BattleState
         if(e.m_info == 0)
         {
             if (tiles.Contains(m_owner.m_currentTile))
+            {
+                turn.actor.GetComponent<Movement>().CalculateAndApplyMoveCost(m_owner.m_currentTile);
                 m_owner.ChangeState<MoveSequenceState>();
+            }
         }
         else
         {

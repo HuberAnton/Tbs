@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class Movement : MonoBehaviour
 {
-    public int m_range { get { return stats[StatTypes.MOV]; } }
+    public int m_range { get { return stats[StatTypes.MOV] * stats[StatTypes.AP]; } }
     public int m_jumpHeight { get { return stats[StatTypes.JMP]; } }
     protected Stats stats;
 
@@ -13,11 +13,11 @@ public abstract class Movement : MonoBehaviour
 
     public abstract IEnumerator Traverse(Tile tile);
 
-
     protected virtual void Awake()
     {
         m_unit = GetComponent<Unit>();
         m_jumper = transform.Find("Jumper");
+
     }
 
     protected virtual void Start()
@@ -63,7 +63,8 @@ public abstract class Movement : MonoBehaviour
         }
         else if(Mathf.Approximately(t.startTweenValue.y, 270) && Mathf.Approximately(t.endTweenValue.y, 0))
         {
-            t.endTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
+            //t.endTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
+            t.startTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
         }
 
         m_unit.m_direction = a_dir;
@@ -73,5 +74,12 @@ public abstract class Movement : MonoBehaviour
             yield return null;
     }
 
+    // Default values.
+    // Should be overritten by the different movement types.
+    public void CalculateAndApplyMoveCost(Tile target)
+    {
+       int total = (int)Mathf.Ceil((float)target.m_distance / (float)stats[StatTypes.MOV]);
+       stats[StatTypes.AP] -= total;
+    }
 
 }

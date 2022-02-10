@@ -14,6 +14,9 @@ public class TurnOrderController : MonoBehaviour
     // - this value on action
     const int actionCost = 200;
 
+    // Cycles to the next activateable alliance.
+    bool endTurn = false;
+
     // For adding observers.
     // Makes the process much s
     public const string RoundBeginNotificaiton = "TurnOrderController.roundBegan";
@@ -22,6 +25,26 @@ public class TurnOrderController : MonoBehaviour
     public const string RoundEndedNotificaiton = "TurnOrderController.roundEnded";
     public const string TurnBeganNotification = "TurnOrderController.TurnBeganNotification";
 
+
+    // In case there are triggers attached to specific alliances turns beginning
+    static Dictionary<Alliances, string> _allianceTurnBeginNotifcation = new Dictionary<Alliances, string>();
+    public static string AllianceTurnBeginNotificaiton(Alliances alliance)
+    {
+        if (!_allianceTurnBeginNotifcation.ContainsKey(alliance))
+            _allianceTurnBeginNotifcation.Add(alliance, string.Format("TurnOrderController.{0}BeginTurn", alliance.ToString()));
+        return _allianceTurnBeginNotifcation[alliance];
+    }
+
+    static Dictionary<Alliances, string> _allianceTurnEndNotifcation = new Dictionary<Alliances, string>();
+    public static string AllianceTurnEndNotificaiton(Alliances alliance)
+    {
+        if (!_allianceTurnEndNotifcation.ContainsKey(alliance))
+            _allianceTurnEndNotifcation.Add(alliance, string.Format("TurnOrderController.{0}EndTurn", alliance.ToString()));
+        return _allianceTurnEndNotifcation[alliance];
+    }
+
+    // Old turn order controller code
+    // Based around the ctr version.
     public IEnumerator Round()
     {
         // For shorthand.
@@ -29,7 +52,7 @@ public class TurnOrderController : MonoBehaviour
 
 
         // A 'round'
-        while(true)
+        while (true)
         {
             // Begin round effects.
             this.PostNotification(RoundBeginNotificaiton);
@@ -37,7 +60,7 @@ public class TurnOrderController : MonoBehaviour
 
 
             // Cycles through all units and ads speed to Ctr stat.
-            for(int i = 0; i < units.Count; ++i)
+            for (int i = 0; i < units.Count; ++i)
             {
                 Stats s = units[i].GetComponent<Stats>();
                 // So speed value makes the unit act quicker.
@@ -57,7 +80,7 @@ public class TurnOrderController : MonoBehaviour
             {
                 // Will only activate a unit if 1000 ctr.
                 // otherwise will skip.
-                if(CanTakeTurn(units[i]))
+                if (CanTakeTurn(units[i]))
                 {
                     // Activate unit
                     bc.turn.Change(units[i]);
@@ -84,7 +107,7 @@ public class TurnOrderController : MonoBehaviour
                     // Unit specific turn completion notifications.
                     // For any effects on unit at its wait.
                     units[i].PostNotification(TurnCompletedNotification);
-                }    
+                }
             }
             // End of round for any end of round effects.
             // Only occurs after all units have been checked
@@ -111,4 +134,59 @@ public class TurnOrderController : MonoBehaviour
         return target.GetComponent<Stats>()[StatTypes.CTR];
     }
 
+    Driver GetDriver(Unit target)
+    {
+        return target.GetComponent<Driver>();
+    }
+
+
+    // Cycles through each alliance.
+    // 
+    public IEnumerator CurrentTurn()
+    {
+        BattleController bc = GetComponent<BattleController>();
+
+        while (true)
+        {
+            this.PostNotification(RoundBeginNotificaiton);
+
+            // Set the alliances units to the current units.
+            // Add the appropriate action points back to the unit.
+            foreach (KeyValuePair<Alliances, List<Unit>> kvp in bc.alliances)
+            {
+                // Cycle through each unit in the alliance and apply max ap.
+                for (int i = 0; i < kvp.Value.Count; ++i)
+                {
+                    Stats s = kvp.Value[i].GetComponent<Stats>();
+                    // Will ensure modifiers take effect.
+                    s[StatTypes.AP] = s[StatTypes.APMAX];
+                }
+
+                // Changes alliance
+                bc.turn.Change(kvp.Key, kvp.Value);
+                AllianceTurnBeginNotificaiton(kvp.Key);
+
+                Unit nextUnit;
+
+                while (!bc.turn.endTurn)
+                {
+                    nextUnit = bc.turn.GetNextUnit();
+                    if (nextUnit)
+                    {
+                        nextUnit.PostNotification(TurnBeganNotification);
+                        bc.turn.Change(nextUnit);
+                        yield return nextUnit;
+                        nextUnit.PostNotification(TurnCompletedNotification);
+                    }
+                }
+
+                AllianceTurnEndNotificaiton(kvp.Key);
+            }
+
+            // Nothing else should be handled by the turn controller as
+            // it has set the correct units to be activated this round.
+
+            this.PostNotification(RoundEndedNotificaiton);
+        }
+    }
 }

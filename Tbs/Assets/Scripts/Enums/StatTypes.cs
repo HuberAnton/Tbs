@@ -20,5 +20,7 @@ public enum StatTypes
     MOV,
     JMP,
     CTR,    // For ff based turn order.
+    AP,     // For xcom based abilites
+    APMAX,
     Count
 }

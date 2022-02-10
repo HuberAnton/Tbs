@@ -48,7 +48,7 @@ public class Ability : MonoBehaviour
         this.PostNotification(DidPerfromNotificaiton);
     }
 
-    //
+
     void Perform(Tile target)
     {
         for(int i = 0; i < transform.childCount; ++i)

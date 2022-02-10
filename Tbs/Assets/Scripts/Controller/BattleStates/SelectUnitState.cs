@@ -9,7 +9,9 @@ public class SelectUnitState : BattleState
     public override void Enter()
     {
         base.Enter();
-        StartCoroutine("ChangeCurrentUnit");
+        //StartCoroutine("ChangeCurrentUnit");
+        StartCoroutine("ChangeCurrentAlliance");
+        //ChangeCurrentAlliance();
     }
 
     public override void Exit()
@@ -22,7 +24,6 @@ public class SelectUnitState : BattleState
     {
         if (units.Count > 0)
         {
-
             m_owner.round.MoveNext();
             SelectTile(turn.actor.m_tile.m_pos);
             // Refresh here as the turn change swaps then
@@ -34,6 +35,34 @@ public class SelectUnitState : BattleState
         }
         else
             m_owner.ChangeState<ExploreState>();
+    }
+
+    IEnumerator ChangeCurrentAlliance()
+    {
+        if(alliances.Count > 1)//should be 1
+        {
+            m_owner.round.MoveNext();
+            // Halt a frame to make sure transition is completed.
+            yield return null;
+            if (turn.driver.Current == Drivers.Computer)
+            {
+                // This will bite me in the ass.
+                //Unit activeUnit = turn.aiDrivenUnacted[0];
+                //turn.aiDrivenUnacted.Remove(activeUnit);
+                //turn.Change(activeUnit);
+                m_owner.ChangeState<CommandSelectionState>();
+            }
+            else
+            {
+                //turn.Change(turn.playerDrivenUnacted[0]);
+                SelectTile(turn.actor.m_tile.m_pos);
+                m_owner.ChangeState<ExploreState>();
+            }
+        }
+        else
+        {
+            // Check win condition.
+        }
     }
 
 }

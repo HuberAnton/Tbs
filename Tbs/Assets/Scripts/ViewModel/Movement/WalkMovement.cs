@@ -64,6 +64,7 @@ public class WalkMovement : Movement
                 yield return StartCoroutine(Jump(to));
 
         }
+
         yield return null;
     }
 

@@ -13,11 +13,11 @@ public abstract class Movement : MonoBehaviour
 
     public abstract IEnumerator Traverse(Tile tile);
 
-
     protected virtual void Awake()
     {
         m_unit = GetComponent<Unit>();
         m_jumper = transform.Find("Jumper");
+
     }
 
     protected virtual void Start()
@@ -74,6 +74,8 @@ public abstract class Movement : MonoBehaviour
             yield return null;
     }
 
+    // Default values.
+    // Should be overritten by the different movement types.
     public void CalculateAndApplyMoveCost(Tile target)
     {
        int total = (int)Mathf.Ceil((float)target.m_distance / (float)stats[StatTypes.MOV]);

@@ -10,9 +10,8 @@ public class InitBattleState : BattleState
         StartCoroutine(Init());
     }
 
-    // I knew somehting like this would exist.
-    // Every state should have something like hits almost.
-    // Or at least the Init should.
+    // Cooroutine to ensure other states can not occur
+    // before all setup complete.
     IEnumerator Init()
     {
         m_board.Load(m_levelData);
@@ -78,9 +77,10 @@ public class InitBattleState : BattleState
     void SpawnTestUnits()
     {
         // Name of recipes go in here.
+        // Level should contain these normally.
         string[] recipes = new string[]
             {
-                "Hero",
+                "Knight",
                 "Villan",
                 "Hero Ai",
                 "Villan"
@@ -138,7 +138,6 @@ public class InitBattleState : BattleState
             // Should order units by driver.
 
 
-            // Old will be removed.
             units.Add(unit);
         }
         // Have unit marker start at unit 0 of above loop.

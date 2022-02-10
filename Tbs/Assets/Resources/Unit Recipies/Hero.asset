@@ -16,5 +16,6 @@ MonoBehaviour:
   job: Warrior
   attack: Common/Attack
   abilityCatalog: Warrior Abilities
+  strategy: 
   locomotion: 0
   alliances: 2

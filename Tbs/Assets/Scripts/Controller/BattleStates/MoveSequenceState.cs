@@ -15,7 +15,7 @@ public class MoveSequenceState : BattleState
     {
         Movement m = turn.actor.GetComponent<Movement>();
         yield return StartCoroutine(m.Traverse(m_owner.m_currentTile));
-        // Needs to be converted to a subtraciton of ap.
+
         //turn.hasUnitMoved = true;
 
         m_owner.ChangeState<CommandSelectionState>();

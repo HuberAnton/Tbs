@@ -43,6 +43,8 @@ public class TurnOrderController : MonoBehaviour
         return _allianceTurnEndNotifcation[alliance];
     }
 
+    // Old turn order controller code
+    // Based around the ctr version.
     public IEnumerator Round()
     {
         // For shorthand.

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 11e5fe7e52298d04080354df3f17e868, type: 3}
   m_Name: Hero Ai
   m_EditorClassIdentifier: 
-  model: Hero
+  model: Archer
   job: Warrior
   attack: Common/Attack
   abilityCatalog: Warrior Abilities

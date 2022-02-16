@@ -26,7 +26,7 @@ using System;
 // it's modifiers and stats. Crazy.
 public static class JobParser
 {
-    // Values from the spreadsheet.
+    // Positions on the spreadsheet.
     // Hardcoded somewhat.
     // Will need to find where it is in 
     // the spreadsheet to solve this.

@@ -7,5 +7,5 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Archer OverrideAnimator
-  m_Controller: {fileID: 9100000, guid: 44e95c0233ef94b479bde0b01a376b14, type: 2}
+  m_Controller: {fileID: 9100000, guid: c2f1166deb6c47c4f9548ba4ec5e2877, type: 2}
   m_Clips: []

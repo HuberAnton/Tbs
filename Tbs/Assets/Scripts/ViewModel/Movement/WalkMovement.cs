@@ -45,6 +45,7 @@ public class WalkMovement : Movement
 
         for (int i = 1; i < targets.Count; ++i)
         {
+
             Tile from = targets[i - 1];
             Tile to = targets[i];
 
@@ -66,14 +67,15 @@ public class WalkMovement : Movement
         }
 
         yield return null;
+        AnimationController.Play(m_unit, "Idle");
     }
-
 
     // The actual methods of movement.
     // If you want to modify the movemnt it happens here.
     // Need to look into the tweenings class more.
     IEnumerator Walk(Tile a_target)
     {
+        AnimationController.Play(m_unit, "Walk");
         Tweener tweener = transform.MoveTo(a_target.m_center, 0.5f, EasingEquations.Linear);
         while (tweener != null)
             yield return null;
@@ -81,6 +83,7 @@ public class WalkMovement : Movement
 
     IEnumerator Jump(Tile a_to)
     {
+        AnimationController.Play(m_unit, "Jump");
         Tweener tweener = transform.MoveTo(a_to.m_center, 0.5f, EasingEquations.Linear);
 
         Tweener t2 = m_jumper.MoveToLocal(new Vector3(0, Tile.m_stepHeight * 2f, 0),
@@ -90,6 +93,7 @@ public class WalkMovement : Movement
 
         while (tweener != null)
             yield return null;
+
     }
 
 

@@ -136,9 +136,9 @@ public class InitBattleState : BattleState
                 alliances.Add(al, units);
             }
             // Should order units by driver.
-
-
             units.Add(unit);
+
+            AnimationController.AddAnimationObservers(unit);
         }
         // Have unit marker start at unit 0 of above loop.
         if (units.Count > 0)

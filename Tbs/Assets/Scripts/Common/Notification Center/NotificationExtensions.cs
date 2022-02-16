@@ -14,7 +14,6 @@ using Handler = System.Action<System.Object, System.Object>;
 public static class NotificationExtensions
 {
     // Posting notifications occurs in the 
-    // 
     public static void PostNotification(this object obj, string notificationName)
     {
         NotificationCenter.instance.PostNotification(notificationName, obj);

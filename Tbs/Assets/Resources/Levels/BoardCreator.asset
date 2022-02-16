@@ -13,84 +13,286 @@ MonoBehaviour:
   m_Name: BoardCreator
   m_EditorClassIdentifier: 
   m_tiles:
-  - {x: 3, y: 3, z: 3}
-  - {x: 4, y: 2, z: 3}
-  - {x: 5, y: 2, z: 3}
-  - {x: 5, y: 2, z: 7}
-  - {x: 6, y: 3, z: 7}
-  - {x: 7, y: 3, z: 7}
-  - {x: 8, y: 2, z: 7}
-  - {x: 9, y: 2, z: 7}
-  - {x: 5, y: 3, z: 8}
-  - {x: 6, y: 4, z: 8}
-  - {x: 7, y: 6, z: 8}
-  - {x: 8, y: 3, z: 8}
-  - {x: 9, y: 3, z: 8}
+  - {x: 1, y: 8, z: 5}
+  - {x: 3, y: 3, z: 9}
+  - {x: 4, y: 2, z: 9}
   - {x: 5, y: 2, z: 9}
-  - {x: 6, y: 2, z: 9}
+  - {x: 3, y: 1, z: 1}
+  - {x: 3, y: 1, z: 2}
+  - {x: 3, y: 1, z: 3}
+  - {x: 3, y: 2, z: 4}
+  - {x: 3, y: 3, z: 5}
+  - {x: 3, y: 1, z: 6}
+  - {x: 3, y: 1, z: 7}
+  - {x: 3, y: 1, z: 8}
+  - {x: 1, y: 1, z: 9}
+  - {x: 2, y: 1, z: 9}
+  - {x: 6, y: 1, z: 9}
   - {x: 7, y: 2, z: 9}
-  - {x: 8, y: 1, z: 9}
-  - {x: 9, y: 2, z: 9}
-  - {x: 9, y: 1, z: 5}
-  - {x: 9, y: 1, z: 6}
+  - {x: 8, y: 2, z: 9}
+  - {x: 1, y: 3, z: 6}
+  - {x: 1, y: 2, z: 7}
+  - {x: 1, y: 2, z: 8}
+  - {x: 1, y: 2, z: 4}
+  - {x: 2, y: 2, z: 4}
+  - {x: 4, y: 1, z: 4}
+  - {x: 2, y: 2, z: 5}
+  - {x: 4, y: 2, z: 5}
+  - {x: 2, y: 2, z: 6}
+  - {x: 2, y: 1, z: 7}
+  - {x: 2, y: 1, z: 8}
+  - {x: 7, y: 1, z: 2}
+  - {x: 8, y: 2, z: 2}
+  - {x: 9, y: 1, z: 7}
+  - {x: 9, y: 2, z: 8}
+  - {x: 9, y: 3, z: 9}
+  - {x: 8, y: 3, z: 5}
   - {x: 8, y: 1, z: 6}
-  - {x: 3, y: 2, z: 5}
-  - {x: 4, y: 1, z: 5}
-  - {x: 3, y: 2, z: 6}
-  - {x: 4, y: 1, z: 6}
-  - {x: 3, y: 3, z: 7}
-  - {x: 4, y: 2, z: 7}
-  - {x: 5, y: 1, z: 4}
-  - {x: 6, y: 2, z: 4}
-  - {x: 7, y: 1, z: 4}
+  - {x: 0, y: 1, z: 1}
+  - {x: 1, y: 1, z: 1}
+  - {x: 0, y: 1, z: 2}
+  - {x: 1, y: 2, z: 2}
   - {x: 5, y: 1, z: 5}
   - {x: 6, y: 1, z: 5}
   - {x: 7, y: 1, z: 5}
-  - {x: 5, y: 1, z: 6}
-  - {x: 6, y: 1, z: 6}
-  - {x: 7, y: 1, z: 6}
-  - {x: 1, y: 1, z: 8}
-  - {x: 2, y: 1, z: 8}
-  - {x: 3, y: 2, z: 8}
-  - {x: 4, y: 2, z: 8}
-  - {x: 1, y: 1, z: 9}
-  - {x: 2, y: 1, z: 9}
-  - {x: 3, y: 1, z: 9}
-  - {x: 4, y: 1, z: 9}
-  - {x: 0, y: 3, z: 0}
-  - {x: 1, y: 1, z: 0}
-  - {x: 2, y: 1, z: 0}
-  - {x: 3, y: 2, z: 0}
-  - {x: 0, y: 1, z: 1}
-  - {x: 1, y: 1, z: 1}
-  - {x: 2, y: 1, z: 1}
-  - {x: 3, y: 2, z: 1}
-  - {x: 0, y: 1, z: 2}
-  - {x: 1, y: 1, z: 2}
   - {x: 2, y: 1, z: 2}
-  - {x: 3, y: 2, z: 2}
-  - {x: 0, y: 1, z: 3}
   - {x: 1, y: 1, z: 3}
   - {x: 2, y: 1, z: 3}
-  - {x: 0, y: 1, z: 4}
-  - {x: 1, y: 1, z: 4}
-  - {x: 2, y: 1, z: 4}
-  - {x: 3, y: 1, z: 4}
-  - {x: 0, y: 1, z: 5}
-  - {x: 1, y: 1, z: 5}
-  - {x: 2, y: 1, z: 5}
-  - {x: 0, y: 1, z: 6}
-  - {x: 1, y: 1, z: 6}
-  - {x: 2, y: 1, z: 6}
-  - {x: 0, y: 1, z: 7}
-  - {x: 1, y: 1, z: 7}
-  - {x: 2, y: 1, z: 7}
-  - {x: 4, y: 1, z: 0}
-  - {x: 5, y: 1, z: 0}
-  - {x: 4, y: 1, z: 1}
-  - {x: 5, y: 1, z: 1}
-  - {x: 4, y: 1, z: 2}
-  - {x: 5, y: 1, z: 2}
-  - {x: 6, y: 1, z: 1}
-  - {x: 6, y: 1, z: 2}
-  - {x: 6, y: 1, z: 3}
+  - {x: 8, y: 1, z: 3}
+  - {x: 8, y: 1, z: 4}
+  m_tileData:
+  - m_position: {x: 1, y: 8, z: 5}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 3, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 4, y: 2, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 5, y: 2, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 1, z: 1}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 1, z: 2}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 1, z: 3}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 2, z: 4}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 3, z: 5}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 1, z: 6}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 1, z: 7}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 3, y: 1, z: 8}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 1, y: 1, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 2, y: 1, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 6, y: 1, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 7, y: 2, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 8, y: 2, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 1, y: 3, z: 6}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 1, y: 2, z: 7}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 1, y: 2, z: 8}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 1, y: 2, z: 4}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 2, y: 2, z: 4}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 4, y: 1, z: 4}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 2, y: 2, z: 5}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 4, y: 2, z: 5}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 2, y: 2, z: 6}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 2, y: 1, z: 7}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 2, y: 1, z: 8}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 7, y: 1, z: 2}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 8, y: 2, z: 2}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 9, y: 1, z: 7}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 9, y: 2, z: 8}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 9, y: 3, z: 9}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 8, y: 3, z: 5}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 8, y: 1, z: 6}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 0, y: 1, z: 1}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 1, y: 1, z: 1}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 0, y: 1, z: 2}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 1, y: 2, z: 2}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 5, y: 1, z: 5}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 6, y: 1, z: 5}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 7, y: 1, z: 5}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 2, y: 1, z: 2}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 1, y: 1, z: 3}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 2, y: 1, z: 3}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 8, y: 1, z: 3}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}
+  - m_position: {x: 8, y: 1, z: 4}
+    m_tileSet: 0
+    m_tileType: 0
+    m_features: []
+    m_content: {fileID: 0}

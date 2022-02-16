@@ -11,7 +11,7 @@ public abstract class Movement : MonoBehaviour
     protected Unit m_unit;
     protected Transform m_jumper;
 
-
+    protected Animator m_animator;
 
     public abstract IEnumerator Traverse(Tile tile);
 
@@ -19,6 +19,10 @@ public abstract class Movement : MonoBehaviour
     {
         m_unit = GetComponent<Unit>();
         m_jumper = transform.Find("Jumper");
+
+        Animator animator = GetComponentInChildren<Animator>();
+        if (animator != null)
+            m_animator = animator;
     }
 
     protected virtual void Start()
@@ -58,8 +62,7 @@ public abstract class Movement : MonoBehaviour
         TransformLocalEulerTweener t =
             (TransformLocalEulerTweener)transform.RotateToLocal(a_dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);
 
-        AnimationController.Play(m_unit, "Rotate");
-        if (Mathf.Approximately(t.startTweenValue.y, 0f) && Mathf.Approximately(t.endTweenValue.y, 270f))
+        if(Mathf.Approximately(t.startTweenValue.y, 0f) && Mathf.Approximately(t.endTweenValue.y, 270f))
         {
             t.startTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
         }
@@ -68,6 +71,8 @@ public abstract class Movement : MonoBehaviour
             //t.endTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
             t.startTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);
         }
+        if(m_animator != null)
+            m_animator.SetBool("TurnLeft", true);
         m_unit.m_direction = a_dir;
 
 
@@ -75,8 +80,8 @@ public abstract class Movement : MonoBehaviour
         {
             yield return null;
         }
-        AnimationController.Play(m_unit, "Idle");
-
+        if (m_animator != null)
+            m_animator.SetBool("TurnLeft", false);
     }
 
     // Default values.

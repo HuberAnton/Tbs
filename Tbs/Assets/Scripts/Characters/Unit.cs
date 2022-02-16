@@ -7,6 +7,8 @@ public class Unit : MonoBehaviour
     public Tile m_tile { get; protected set; }
     public Directions m_direction;
 
+    public Animator animator;
+
     public void Place(Tile a_target)
     {
         // If on a tile and the tile is the one containing this unit

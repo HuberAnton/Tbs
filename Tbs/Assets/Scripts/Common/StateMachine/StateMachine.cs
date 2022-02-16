@@ -37,7 +37,7 @@ public class StateMachine : MonoBehaviour
     // Note that this locks you into completing the states "Enter".
     protected virtual void Transition(State value)
     {
-        //Debug.Log(string.Format("Trying to enter {0}", value.ToString()));
+        Debug.Log(string.Format("Trying to enter {0}", value.ToString()));
         // Enter same state or _already in transition
         // quick return. Should be helpful
         if (_currentState == value || _inTransition)
@@ -45,7 +45,7 @@ public class StateMachine : MonoBehaviour
 
 
         _inTransition = true;
-        //Debug.Log(string.Format("Entering {0}", value.ToString()));
+        Debug.Log(string.Format("Entering {0}", value.ToString()));
         // Do exit things.
         // This reminds me that I should
         // have a state that does stuff while it 
@@ -60,6 +60,6 @@ public class StateMachine : MonoBehaviour
             _currentState.Enter();
 
         _inTransition = false;
-        //Debug.Log(string.Format("Now in {0}", value.ToString()));
+        Debug.Log(string.Format("Now in {0}", value.ToString()));
     }
 }

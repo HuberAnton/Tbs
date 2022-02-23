@@ -58,7 +58,7 @@ public abstract class Movement : MonoBehaviour
         TransformLocalEulerTweener t =
             (TransformLocalEulerTweener)transform.RotateToLocal(a_dir.ToEuler(), 0.25f, EasingEquations.EaseInOutQuad);
 
-        AnimationController.Play(m_unit, "Rotate");
+        AnimationController.Play(m_unit, "Rotate"); // Should look for component on movement.
         if (Mathf.Approximately(t.startTweenValue.y, 0f) && Mathf.Approximately(t.endTweenValue.y, 270f))
         {
             t.startTweenValue = new Vector3(t.startTweenValue.x, 360f, t.startTweenValue.z);

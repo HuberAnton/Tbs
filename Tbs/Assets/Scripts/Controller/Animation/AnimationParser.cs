@@ -19,7 +19,6 @@ public static class AnimationParser
         CreateDirectories();
         ParseSelectedFolders(folders);
 
-
         //
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
@@ -92,9 +91,10 @@ public static class AnimationParser
                     var anim = AssetDatabase.LoadAssetAtPath<AnimationClip>(files[j]);
                     if (anim != null)
                     {
-                        // Needs to be correctly named.
-                        Debug.Log(anim.name);
+                        string name = Path.GetFileName(files[j]);
 
+                        anim.name = name.Remove(name.Length - 4);
+                        
                         animController.AddMotion(anim);
                     }
                 }
@@ -102,4 +102,3 @@ public static class AnimationParser
         }
     }
 }
-

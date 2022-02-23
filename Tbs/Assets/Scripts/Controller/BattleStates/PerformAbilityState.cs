@@ -16,18 +16,12 @@ public class PerformAbilityState : BattleState
     }
 
     IEnumerator Animate()
-    {
-        // Get the attack effects
-        // ability.Perform(m_owner.m_targets);
-        // add an ability
-
-        // Play animations/
-        // Particles/Projectiles. ect
-        yield return null;
+    {    
+        yield return StartCoroutine(turn.ability.PerformCR(turn.targets));
         // Apply ability effects
         // This is where you should look for the
         // attack on the character.
-        ApplyAbility();
+        //ApplyAbility();
 
         if (IsBattleOver())
             m_owner.ChangeState<CutSceneState>();
@@ -48,17 +42,6 @@ public class PerformAbilityState : BattleState
     bool UnitHasControl()
     {
         return turn.actor.GetComponentInChildren<KnockOutStatusEffect>() == null;
-    }
-
-    // These should be called by the ablilites themselevs.
-    // Leaing these hear for a moment.
-    void OnApply(object sender)
-    {
-
-    }
-    void OnComplete(object sender)
-    {
-
     }
 
 }

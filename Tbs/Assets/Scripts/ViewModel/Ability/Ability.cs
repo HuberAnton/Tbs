@@ -47,10 +47,10 @@ public class Ability : MonoBehaviour
         // Eg sound, animations and effects for the ability
         // then apply the damage
 
-        AbilityAnimation  ab =  GetComponentInChildren<AbilityAnimation>();
+        AbilityAnimation ab =  GetComponentInChildren<AbilityAnimation>();
         if (ab)
         {
-            yield return StartCoroutine(ab.ApplyAnimation());
+            yield return StartCoroutine(ab.PlayAnimation());
         }
         else
         {

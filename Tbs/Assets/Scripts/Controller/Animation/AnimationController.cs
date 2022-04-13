@@ -7,8 +7,18 @@ using UnityEngine.Animations;
 // Handles all changes in animations for
 // units in scenes. Meant to decouple and
 // and allow for reuse withs several systems.
+
+// Note that this might be null as the intention is to create an extension that allows for playing
+// animation. That would mean the animationEventNotificationHandler will deal with it all and you
+// will call unit.Play(anim,speed) ect and that will cover all it's listeners.
+
+// Issue is the listeners will always need to know about the unit.
 public class AnimationController
 {
+
+    // May not need to exist.
+    // It does keep a list of all animations that are playable in a scene so it could be used to 
+    // filter out calls that don't work.
     static Dictionary<string, string> _animationPlayNotificaiton = new Dictionary<string, string>();
     public static string AnimationPlayNotificaiton(string animationName)
     {
@@ -18,14 +28,6 @@ public class AnimationController
         return _animationPlayNotificaiton[animationName];
     }
 
-    static Dictionary<string, string> _animationFinishNotificaiton = new Dictionary<string, string>();
-    public static string AnimationFinishNotificaiton(string animationName)
-    {
-        if (!_animationFinishNotificaiton.ContainsKey(animationName))
-            _animationFinishNotificaiton.Add(animationName, string.Format("AnimationController.FinishAnimation_{0}",
-                 animationName));
-        return _animationFinishNotificaiton[animationName];
-    }
 
 
     private static string Format(Unit unit, string animationName)
@@ -34,35 +36,32 @@ public class AnimationController
     }
 
     // Adds observers to 
-    private static void AddAnimationObservers(Unit unit, string animationName)
-    {
-        // Add an observer for starting and ending animaiton.
-        Animator anim = unit.GetComponentInChildren<Animator>();
+    //private static void AddAnimationObservers(Unit unit, string animationName)
+    //{
+    //    // Add an observer for starting and ending animaiton.
+    //    Animator anim = unit.GetComponentInChildren<Animator>();
 
-        var clips = anim.runtimeAnimatorController.animationClips;
+    //    var clips = anim.runtimeAnimatorController.animationClips;
 
-        for (int i = 0; i < clips.Length; ++i)
-        {
+    //    for (int i = 0; i < clips.Length; ++i)
+    //    {
 
-            // Adding observers for commands
-            unit.AddObserver(PlayAnimation, AnimationPlayNotificaiton(animationName));
-            //unit.AddObserver(CompletedAnimation, AnimationFinishNotificaiton(animationName));
+    //        // Adding observers for commands
+    //        unit.AddObserver(PlayAnimation, AnimationPlayNotificaiton(animationName));
+    //        //unit.AddObserver(CompletedAnimation, AnimationFinishNotificaiton(animationName));
 
-            // Animaiton events will need the associated animation attached onto the gameobject
-            // houseing the animation controller.
-            var clip = clips[i];
-            // Start event
-            AnimationEvent ev = new AnimationEvent();
-            ev.functionName = "CompletedAnimation";
-            ev.intParameter = i;
-            ev.time = clip.length;
-            clip.AddEvent(ev);
-
-
-
-            // End event
-        }
-    }
+    //        // Animaiton events will need the associated animation attached onto the gameobject
+    //        // houseing the animation controller.
+    //        var clip = clips[i];
+    //        // Start event
+    //        AnimationEvent ev = new AnimationEvent();
+    //        ev.functionName = "PostNotificaitonInt";
+    //        ev.intParameter = 0;
+    //        ev.time = clip.length;
+    //        clip.AddEvent(ev);
+    //        // End event
+    //    }
+    //}
 
 
 
@@ -70,39 +69,50 @@ public class AnimationController
 
 
     // Get the animator and cycle through all the clips
-    public static void AddAnimationObservers(Unit unit)
+    //public static void AddAnimationObservers(Unit unit)
+    //{
+    //    Animator anim = unit.GetComponentInChildren<Animator>();
+    //    if (anim)
+    //    {
+    //        var clips = anim.runtimeAnimatorController.animationClips;
+    //        for (int i = 0; i < clips.Length; ++i)
+    //        {
+    //            string animationName = Format(unit, clips[i].name);
+
+    //            //unit.AddObserver(PlayAnimation, AnimationPlayNotificaiton(animationName));
+
+    //            AddAnimationObservers(unit, animationName);
+    //        }
+    //    }
+    //}
+
+    public static void Stop(Unit unit)
     {
-        Animator anim = unit.GetComponentInChildren<Animator>();
+        var anim = unit.GetComponent<Animator>();
         if (anim)
         {
-            var clips = anim.runtimeAnimatorController.animationClips;
-            for(int i = 0; i < clips.Length; ++i)
-            {
-                string animationName = Format(unit, clips[i].name);
-                
-                //unit.AddObserver(PlayAnimation, AnimationPlayNotificaiton(animationName));
-
-                AddAnimationObservers(unit, animationName);
-            }
+            anim.speed = 0;
         }
     }
 
-    static void PlayAnimation(object sender, object args)
+    public static void Slow(Unit unit, float from, float to)
     {
 
-        Unit unit = (Unit)sender;
-        string animation = (string)args;
-        Animator anim = unit.GetComponentInChildren<Animator>();
-        anim.Play(animation);
     }
-    
+
     public static void Play(Unit unit, string animationName)
+    {
+        Play(unit, animationName, 1);
+    }
+
+    public static void Play(Unit unit, string animationName, float speed)
     {
         string check = Format(unit, animationName);
         if (_animationPlayNotificaiton.ContainsKey(check))
         {
-            string test = _animationPlayNotificaiton[check];
-            unit.PostNotification(test, animationName);
+            Animator anim = unit.GetComponentInChildren<Animator>();
+            anim.speed = speed;
+            anim.Play(animationName);
         }
         else
         {
@@ -110,45 +120,108 @@ public class AnimationController
         }
     }
 
-
-    public static void AddListenerForCompletion(Unit unit, string animationName)
+    // Test cases for animation events.
+    // Event name is always PostNotificaitonInt.
+    // The funciton will post a notification to all listeners.
+    // So the system will need
+    public static void AddAnimationEventTest(Animator animator, string clipName, int eventNumber, float eventTime)
     {
-        string check = Format(unit, animationName);
-
-        if (_animationPlayNotificaiton.ContainsKey(check))
+        if (animator)
         {
-            // Should be attached to an animation event.
-            // The animation event should then trigger my event listeners.
-            // Potentially these should be added upon the tree creation.
-            // When parsing add these.
+            var clips = animator.runtimeAnimatorController.animationClips;
+            for (int i = 0; i < clips.Length; ++i)
+            {
+                if (clips[i].name == clipName)
+                {
 
-            Animator anim = unit.GetComponentInChildren<Animator>();
+                    AnimationEvent ev = new AnimationEvent();
 
-            var clips = anim.runtimeAnimatorController.animationClips;
+                    // May not need to exist in proposed system.
+                    // Instead compare parameter on event.
+                    ev.functionName = "PostNotificaitonInt";
+                    //ev.time = clips[i].length;
+                    ev.time = eventTime;
 
+                    // This value 
+                    ev.intParameter = eventNumber;
 
+                    clips[i].AddEvent(ev);
+                    return;
+                }
+            }
+            Debug.LogError(string.Format("No event added as animation {0} does not exist on {1}. Make sure the correct controller is attached and has the animation in its tree.", clipName, animator.name));
+        }
+    }
+    
+    // Remove a specific event the a clip.
+    public static void RemoveAnimationEventTest(Animator animator, string clipName, int eventNumber)
+    {
+        if (animator)
+        {
+            var clips = animator.runtimeAnimatorController.animationClips;
 
-            //even.time = anim.length;
-            //even.functionName = "CompletedAnimation";
-            //anim.AddEvent(even);
+            for (int i = 0; i < clips.Length; ++i)
+            {
+                if (clips[i].name == clipName)
+                {
+                    var events = clips[i].events;
+                    for(int j = 0; j < events.Length; ++j)
+                    {
+                        var newEvents = new List<AnimationEvent>();
+                        
+                        // Unless something has gone very wrong you should always be looking for an event.
+                        if (events[j].intParameter != eventNumber)
+                        {
+                            newEvents.Add(events[j]);
+                        }
 
+                        if(newEvents.Count > 0)
+                        {
+                           clips[i].events = newEvents.ToArray();
+                        }
+                        else
+                        {
+                            clips[i].events = new AnimationEvent[0];
+                        }
+                    }
+                    return;
+                }
+            }
+            Debug.LogWarning(string.Format("No event with number {0}", eventNumber));
+        }
+    }
 
+    // Remove all events on a on a clip
+    public static void RemoveAnimationEventsTest(Animator animator, string clipName)
+    {
+        if (animator)
+        {
+            var clips = animator.runtimeAnimatorController.animationClips;
 
+            for(int i = 0; i < clips.Length; ++i)
+            {
+                var cl = clips[i];
+
+                if(cl.name == clipName && cl.events.Length > 0)
+                {
+                    cl.events = new AnimationEvent[0];
+                }
+            }
 
         }
 
-        //Debug.Log("Listeners");
     }
 
-
-    // Cleanup of events on clips.
-    public static void RemoveClipEvents(Unit unit, string animationName)
+    // Removes event then adds event.
+    // Can not edit at runtime by changing values.
+    public static void AdjustAnimationEventTest(Animator animator, string clipName, int eventNumber, float eventTime)
     {
-        string check = Format(unit, animationName);
+        RemoveAnimationEventTest(animator, clipName, eventNumber);
+        AddAnimationEventTest(animator, clipName, eventNumber, eventTime);
     }
+
+
 }
-
-
 // Things I need to sort out.
 
 // Animations listeners should be associated with the unit.

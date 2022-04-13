@@ -134,14 +134,7 @@ public class TurnOrderController : MonoBehaviour
         return target.GetComponent<Stats>()[StatTypes.CTR];
     }
 
-    Driver GetDriver(Unit target)
-    {
-        return target.GetComponent<Driver>();
-    }
-
-
     // Cycles through each alliance.
-    // 
     public IEnumerator CurrentTurn()
     {
         BattleController bc = GetComponent<BattleController>();
@@ -164,7 +157,7 @@ public class TurnOrderController : MonoBehaviour
 
                 // Changes alliance
                 bc.turn.Change(kvp.Key, kvp.Value);
-                AllianceTurnBeginNotificaiton(kvp.Key);
+                this.PostNotification(AllianceTurnBeginNotificaiton(kvp.Key));
 
                 Unit nextUnit;
 
@@ -180,7 +173,7 @@ public class TurnOrderController : MonoBehaviour
                     }
                 }
 
-                AllianceTurnEndNotificaiton(kvp.Key);
+                this.PostNotification(AllianceTurnEndNotificaiton(kvp.Key));
             }
 
             // Nothing else should be handled by the turn controller as

@@ -4,14 +4,5 @@ using UnityEngine;
 
 public class AbilityAnimation : BaseUnitAnimation
 {
-    public override void AddListeners()
-    {
-
-    }
-
-    public override void RemoveListeners()
-    {
-
-    }
 
 }

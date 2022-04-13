@@ -19,7 +19,7 @@ public static class AnimationParser
         CreateDirectories();
         ParseSelectedFolders(folders);
 
-        //
+        
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
 
@@ -66,8 +66,6 @@ public static class AnimationParser
     // names.
     static void ParseSelectedFolders(List<string> folders)
     {
-
-
         // In order to create this asset correctly you need the fullfilename and filetype.
         var animController = AnimatorController.CreateAnimatorControllerAtPath("Assets/Resources/Animations/Test.controller");
         // This will not change the name of the controller.

@@ -119,6 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f660c1fcf899ff34cb7379ad98119a92, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  abilityName: Revive
 --- !u!114 &5629949645468253097
 MonoBehaviour:
   m_ObjectHideFlags: 0

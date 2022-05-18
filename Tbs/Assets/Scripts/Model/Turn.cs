@@ -36,6 +36,7 @@ public class Turn
     {
         actor.RemoveObserver(EndTurnCheck, TurnOrderController.TurnCompletedNotification);
         actor = current;
+        this.
         actor.AddObserver(EndTurnCheck, TurnOrderController.TurnCompletedNotification);
         hasUnitMoved = false;
         hasUnitActed = false;

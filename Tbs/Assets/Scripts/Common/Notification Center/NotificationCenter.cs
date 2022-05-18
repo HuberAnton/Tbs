@@ -140,7 +140,7 @@ public class NotificationCenter
         PostNotification(notificationName, sender, null);
     }
 
-    // This is where the notification are posted
+    
     public void PostNotification(string notificationName, System.Object sender, System.Object e)
     {
         // Can't find the notificaiton.
@@ -150,16 +150,14 @@ public class NotificationCenter
             Debug.LogError("A notification name is required.");
             return;
         }
-        // If notification does not exist
-        // early return. May want to post an error
-        // about name name.
+        // If notification does not exist early return.
         // Note that everytime a PostNotification call that doesn't
         // have any observers it will hit this.
         if (!_table.ContainsKey(notificationName))
             return;
 
         // Check all Notifications on sender(poster) first.
-        // Sender is usually the script itself.
+        // Sender is usually the script object itself.
         SenderTable subTable = _table[notificationName];
         if(sender != null && subTable.ContainsKey(sender))
         {

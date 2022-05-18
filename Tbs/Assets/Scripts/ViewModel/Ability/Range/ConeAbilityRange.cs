@@ -5,7 +5,7 @@ using UnityEngine;
 public class ConeAbilityRange : AbilityRange
 {
     // Units direction
-    public override bool directionOrientation { get { return true; } }
+    public override DirectionOreinationMode directionOrientation { get { return DirectionOreinationMode.RotationOnly; } }
 
     public override List<Tile> GetTilesInRange(Board board)
     {

@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    // ISSUE 
-    // When you want different tiles you will need
-    // to change this gameobject to an atlas.
+    // TODO 
+    // All tiles are currently the same.
+    // Need to store what tile to spawn somewhere
     [SerializeField]
     GameObject m_tilePrefab;
     public Dictionary<Point, Tile> m_tiles = new Dictionary<Point, Tile>();
@@ -38,11 +38,23 @@ public class Board : MonoBehaviour
 
         for (int i = 0; i < m_data.m_tiles.Count;i++)
         {
+            // Create tile and move to position
             GameObject instance = Instantiate(m_tilePrefab) as GameObject;
             Tile t = instance.GetComponent<Tile>();
             t.Load(m_data.m_tiles[i]);
+            // Add the tile to list of tiles on board.
             m_tiles.Add(t.m_pos, t);
 
+            // Add features to the tile.
+            if(m_data.m_tileData[i].m_features.Count > 0)
+            {
+                var currentTile = m_data.m_tileData[i];
+                for (int j = 0; j < currentTile.m_features.Count; ++j)
+                {
+                    currentTile.m_features[j].Apply();
+                }
+            }
+            
             // For setting the max and min of the board space.
             // I wonder if this should just be done at the end of the 
             // loop?

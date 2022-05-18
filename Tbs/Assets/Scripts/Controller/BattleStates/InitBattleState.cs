@@ -14,15 +14,29 @@ public class InitBattleState : BattleState
     // before all setup complete.
     IEnumerator Init()
     {
+        // Create tiles and features on tiles.
         m_board.Load(m_levelData);
+        // Set valid tile selected.
         Point p = new Point((int)m_levelData.m_tiles[0].x, (int)m_levelData.m_tiles[0].z);
         SelectTile(p);
+        // Spawning units should occur in load.
         SpawnTestUnits();
+        // Spawning victory condition should be in load.
         AddVictoryCondition();
-        // Attach the function to the battlecontroller.
+        // Attach the round controller.
         m_owner.round = m_owner.gameObject.AddComponent<TurnOrderController>().CurrentTurn();
         yield return null;
-        m_owner.ChangeState<CutSceneState>();
+        // Should check if cutscene data exists for level.
+        // and load and store the data to be used in the cutscene state.
+        if (true)
+        {
+            m_owner.ChangeState<CutSceneState>();
+        }
+        else
+        {
+            // Move to regular game mode.
+            m_owner.ChangeState<SelectUnitState>();
+        }
     }
 
 
@@ -102,12 +116,7 @@ public class InitBattleState : BattleState
             int random = UnityEngine.Random.Range(0, locations.Count);
             Tile randomTile = locations[random];
 
-            // Need to add to list of alliacnes.
-
-
-
-
-            // Remove from the list of tiles.
+            // Remove from the list of tiles that is available for spawning.
             locations.RemoveAt(random);
 
             // Place unit on tile
@@ -116,8 +125,6 @@ public class InitBattleState : BattleState
             // Give unit random direciton
             unit.m_direction = (Directions)(UnityEngine.Random.Range(0, 4));
             unit.Match();
-
-            // Add to list of units to battlestate
 
             Alliances al = unit.GetComponent<Alliance>().type;
 
@@ -138,7 +145,7 @@ public class InitBattleState : BattleState
             // Should order units by driver.
             units.Add(unit);
 
-            //AnimationController.AddAnimationObservers(unit);
+            AnimationController.AddAnimations(unit.gameObject);
         }
         // Have unit marker start at unit 0 of above loop.
         if (units.Count > 0)

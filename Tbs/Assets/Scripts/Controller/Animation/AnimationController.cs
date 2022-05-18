@@ -23,45 +23,44 @@ public class AnimationController
     public static string AnimationPlayNotificaiton(string animationName)
     {
         if (!_animationPlayNotificaiton.ContainsKey(animationName))
-            _animationPlayNotificaiton.Add(animationName, string.Format("AnimationController.PlayAnimation_{0}",
+            _animationPlayNotificaiton.Add(animationName, string.Format("AnimationController.Animation_{0}",
                  animationName));
         return _animationPlayNotificaiton[animationName];
     }
-
-
 
     private static string Format(Unit unit, string animationName)
     {
         return string.Format(unit.name + "_" + animationName);
     }
 
-    // Adds observers to 
-    //private static void AddAnimationObservers(Unit unit, string animationName)
-    //{
-    //    // Add an observer for starting and ending animaiton.
-    //    Animator anim = unit.GetComponentInChildren<Animator>();
+    // Test case.
+    // Adds animation events
+    private static void AddAnimationObservers(Unit unit, string animationName)
+    {
+        // Add an observer for starting and ending animaiton.
+        Animator anim = unit.GetComponentInChildren<Animator>();
 
-    //    var clips = anim.runtimeAnimatorController.animationClips;
+        var clips = anim.runtimeAnimatorController.animationClips;
 
-    //    for (int i = 0; i < clips.Length; ++i)
-    //    {
+        for (int i = 0; i < clips.Length; ++i)
+        {
 
-    //        // Adding observers for commands
-    //        unit.AddObserver(PlayAnimation, AnimationPlayNotificaiton(animationName));
-    //        //unit.AddObserver(CompletedAnimation, AnimationFinishNotificaiton(animationName));
+            // Adding observers for commands
+            //unit.AddObserver(PlayAnimation, AnimationPlayNotificaiton(animationName));
+            //unit.AddObserver(CompletedAnimation, AnimationFinishNotificaiton(animationName));
 
-    //        // Animaiton events will need the associated animation attached onto the gameobject
-    //        // houseing the animation controller.
-    //        var clip = clips[i];
-    //        // Start event
-    //        AnimationEvent ev = new AnimationEvent();
-    //        ev.functionName = "PostNotificaitonInt";
-    //        ev.intParameter = 0;
-    //        ev.time = clip.length;
-    //        clip.AddEvent(ev);
-    //        // End event
-    //    }
-    //}
+            // Animaiton events will need the associated animation attached onto the gameobject
+            // houseing the animation controller.
+            var clip = clips[i];
+            // Start event
+            AnimationEvent ev = new AnimationEvent();
+            ev.functionName = "PostNotificaitonInt";
+            ev.intParameter = 0;
+            ev.time = clip.length;
+            clip.AddEvent(ev);
+            // End event
+        }
+    }
 
 
 
@@ -100,6 +99,8 @@ public class AnimationController
 
     }
 
+
+
     public static void Play(Unit unit, string animationName)
     {
         Play(unit, animationName, 1);
@@ -107,12 +108,25 @@ public class AnimationController
 
     public static void Play(Unit unit, string animationName, float speed)
     {
+        Play(unit, animationName, 1, false);
+    }
+
+    public static void Play(Unit unit, string animationName, float speed, bool looped)
+    {
         string check = Format(unit, animationName);
         if (_animationPlayNotificaiton.ContainsKey(check))
         {
             Animator anim = unit.GetComponentInChildren<Animator>();
             anim.speed = speed;
             anim.Play(animationName);
+            var events = anim.gameObject.GetComponent<AnimationEventNotificaitonHandler>();
+            // Might need to wait a frame.
+            if (looped)
+            {
+
+            }
+
+            // Need to add event to end
         }
         else
         {
@@ -219,6 +233,25 @@ public class AnimationController
         RemoveAnimationEventTest(animator, clipName, eventNumber);
         AddAnimationEventTest(animator, clipName, eventNumber, eventTime);
     }
+
+    // Adds the animation to the dictionary of the animation conroller.
+    public static void AddAnimations(GameObject unit)
+    {
+        var anim = unit.GetComponentInChildren<Animator>();
+        if (anim)
+        {
+            var clips = anim.runtimeAnimatorController.animationClips;
+            for (int i = 0; i < clips.Length; ++i)
+            {
+                string entry = unit.name;
+                entry += "_" + clips[i].name;
+                AnimationPlayNotificaiton(entry);
+            }
+
+        }
+    }
+
+
 
 
 }

@@ -9,7 +9,7 @@ public class LineAbilityRange : AbilityRange
     // Does not work quite correctly.
     // Adds the character casting it to the list 
     // of affected tiles.
-    public override bool directionOrientation { get { return true; } }
+    public override DirectionOreinationMode directionOrientation { get { return DirectionOreinationMode.RotationOnly; } }
 
     public override List<Tile> GetTilesInRange(Board board)
     {

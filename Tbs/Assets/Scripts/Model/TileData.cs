@@ -14,12 +14,12 @@ public class TileData
     public int m_tileType;
     // Scripts to be added to the tile.
     // Eg Spawn point, Reinforcment point, deployment point.
-    public List<GameObject> m_features;
+    public List<TileFeature> m_features;
 
     // If a unit start off here.
     public GameObject m_content;
 
-    public TileData(Vector3 position, int tileSet, int tileType, List<GameObject> features)
+    public TileData(Vector3 position, int tileSet, int tileType, List<TileFeature> features)
     {
         this.m_position = position;
         this.m_tileSet = tileSet;

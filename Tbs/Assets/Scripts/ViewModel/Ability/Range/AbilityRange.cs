@@ -17,9 +17,25 @@ public abstract class AbilityRange : MonoBehaviour
     // Might need a lower and higher value. Eg can shoot down but
     // not up.
     public int vertical = int.MaxValue; 
-    public virtual bool directionOrientation { get { return false; } }
+
+    public virtual DirectionOreinationMode directionOrientation { get { return DirectionOreinationMode.MovementOnly; } }
+
     // Abilitys will be placed onto units.
     protected Unit unit { get { return GetComponentInParent<Unit>(); } }
 
     public abstract List<Tile> GetTilesInRange(Board board);
+
+
+
+
+
+}
+
+
+
+public enum DirectionOreinationMode
+{
+    MovementOnly,
+    RotationOnly,
+    RotationAndMovement
 }

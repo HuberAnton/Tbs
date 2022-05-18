@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   model: Archer
   job: Warrior
-  attack: Common/Attack
+  attack: Common/Attack Ranged
   abilityCatalog: Warrior Abilities
   strategy: Test
   locomotion: 0

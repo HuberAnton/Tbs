@@ -63,7 +63,7 @@ public class ComputerPlayer : MonoBehaviour
     bool IsDirectionIndependent(PlanOfAttack poa)
     {
         AbilityRange range = poa.ability.GetComponent<AbilityRange>();
-        return !range.directionOrientation;
+        return range.directionOrientation == DirectionOreinationMode.RotationOnly ? false : true;
     }
 
     void PlanDirectionIndependent(PlanOfAttack poa)

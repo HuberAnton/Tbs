@@ -13,7 +13,7 @@ public class Ability : MonoBehaviour
     public const string FailedNotification = "Ability.FailedNotificaiton";
     public const string DidPerfromNotificaiton = "Ability.DidPerformNotificaiton";
 
-
+    public string abilityName = "default";
 
     public bool CanPerform()
     {
@@ -133,6 +133,8 @@ public class Ability : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
     }
+
+
 
 
 }

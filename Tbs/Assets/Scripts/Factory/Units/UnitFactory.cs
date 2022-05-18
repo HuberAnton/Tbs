@@ -31,6 +31,8 @@ public static class UnitFactory
         obj.AddComponent<Health>();
         obj.AddComponent<Mana>();
 
+
+        
         // Should replace this with add weapon
         AddAttack(obj, recipe.attack);
 

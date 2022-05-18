@@ -66,8 +66,8 @@ public class WalkMovement : Movement
 
         }
 
-        yield return null;
         AnimationController.Play(m_unit, "Idle");
+        yield return null;
     }
 
     // The actual methods of movement.

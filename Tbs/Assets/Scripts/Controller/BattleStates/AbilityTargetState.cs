@@ -15,7 +15,7 @@ public class AbilityTargetState : BattleState
         statPanelContoller.ShowPrimary(turn.actor.gameObject);
         // If can be targeted check if you should
         // update the secondary panel.
-        if (ar.directionOrientation)
+        if (ar.directionOrientation == DirectionOreinationMode.MovementOnly || ar.directionOrientation == DirectionOreinationMode.RotationAndMovement)
             RefreshSecondaryStatPanel(m_pos);
 
         if (driver.Current == Drivers.Computer)
@@ -39,11 +39,23 @@ public class AbilityTargetState : BattleState
         // If you are expeced to face the
         // direction to use the attack rotate towards
         // while selecting
-        if (ar.directionOrientation)
+        // Should be a switch but has some repeating code.
+        if (ar.directionOrientation == DirectionOreinationMode.RotationOnly)
         {
             ChangeDirection(e.m_info);
         }
-        else
+        else if(ar.directionOrientation == DirectionOreinationMode.RotationAndMovement)
+        {
+            SelectTile(e.m_info + m_pos);
+            RefreshSecondaryStatPanel(m_pos);
+
+            // - the x and y of the unit and point and look in which ever direciton is greater
+            var difference = turn.actor.m_tile.m_pos - m_pos;
+            var result = Mathf.Abs(difference.m_x) >= Mathf.Abs(difference.m_y) ? new Point(-difference.m_x,0) : new Point(0,-difference.m_y);
+
+            ChangeDirection(result);
+        }
+        else // movement only.
         {
             SelectTile(e.m_info + m_pos);
             RefreshSecondaryStatPanel(m_pos);
@@ -59,7 +71,8 @@ public class AbilityTargetState : BattleState
         {
             // Checks if you need to face to use an action
             // or if the tile exists at all on the board.
-            if(ar.directionOrientation || tiles.Contains(m_board.GetTile(m_pos)))
+            // Irrelevant?
+            if(ar.directionOrientation == DirectionOreinationMode.RotationOnly || tiles.Contains(m_board.GetTile(m_pos)))
                 m_owner.ChangeState<ConfirmAbilityTargetState>();
         }
         // Any other press will result in backing out.
@@ -90,7 +103,7 @@ public class AbilityTargetState : BattleState
     IEnumerator ComputerHighlightTarget()
     {
         yield return new WaitForSeconds(0.5f);
-        if (ar.directionOrientation)
+        if (ar.directionOrientation == DirectionOreinationMode.RotationOnly)
         {
             ChangeDirection(turn.plan.attackDirection.GetNormal());
 
